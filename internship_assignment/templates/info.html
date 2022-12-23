@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your, Information</title>
+</head>
+<body>
+        <div class="container">
+            <p>Name: {{user.get_username}}</p>
+            <p>Email: {{user.email}}</p>
+            <a href="/logout"><button type="submit" class="btn">Logout</button></a>
+            <button id="resetpassword">Reset Password</button>
+            <div id="resetdiv">
+                 <form method="post">
+                     {% csrf_token %}
+                <input type="password" name="newpass" placeholder="New password">
+                <input type="password" name="confirmnewpass" placeholder="Confirm new password">
+                <button type="submit">Reset</button>
+            </form>
+            </div>
+
+        </div>
+<script>
+  var resetdiv = document.getElementById("resetdiv");
+  var resetpass = document.getElementById("resetpassword");
+  resetpass.body.style = `display: none`;
+  resetdiv.addEventListner('click', ()=> {resetpass.body.style = `display: block`})
+
+</script>
+</body>
+</html>
