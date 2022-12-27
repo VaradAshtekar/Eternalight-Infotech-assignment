@@ -52,7 +52,8 @@ def index(request):
             mycursor.execute(sql, val)
 
             mydb.commit()
-
+            request.session['name'] = username
+            request.session['email'] = email
             print(mycursor.rowcount, "record inserted.")
             s_stat = "Registration successful!!"
             color = "success"
@@ -84,6 +85,7 @@ def loginsystem(request):
     return render(request, 'login.html')
 
 def info(request):
+    name_user = request.session['name']
 
     print("user info: ",get_user(request), request.user.email)
     if request.method == "POST":
@@ -98,7 +100,7 @@ def info(request):
             mycursor = mydb.cursor()
             mycursor.execute("UPDATE users SET password = (%s) WHERE name = (%s)", (finalresetpass, request.user.username))
             mydb.commit()
-    return render(request, 'info.html')
+    return render(request, 'info.html', {"name_user":name_user})
 
 def logout_view(request):
         logout(request)
